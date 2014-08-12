@@ -1,7 +1,7 @@
 ## plugin-Scripto
-[Scripto](http://scripto.org/) is an open-source tool developed by [Center for History and New Media](http://chnm.gmu.edu/) that allows for the viewing and collaborative transcription of digital files. Built on MediaWiki, Scripto is intended to be used as an extension of a content management system. Scripto is currently available as a plugin for Omeka, Wordpress, and Drupal. [DIYHistory|transcribe](http://diyhistory.lib.uiowa.edu/transcribe/) uses Scripto with Omeka. Visit [http://diyhistory.lib.uiowa.edu/code.html](http://diyhistory.lib.uiowa.edu/code.html) for an overview of the technology stack and implementation information.
+[Scripto](http://scripto.org/) is an open-source tool developed by [Center for History and New Media](http://chnm.gmu.edu/) that allows for the viewing and collaborative transcription of digital files. Built on MediaWiki, Scripto is intended to be used as an extension of a content management system. Scripto is currently available as a plugin for Omeka, Wordpress, and Drupal. [Making History|Transcribe](https://github.com/LibraryofVA/omeka-themes/tree/master/scribe) uses Scripto with Omeka based on a techonology stack orgainlly implemented by [DIYHistory|transcribe](http://diyhistory.lib.uiowa.edu/transcribe/) Visit [http://diyhistory.lib.uiowa.edu/code.html](http://diyhistory.lib.uiowa.edu/code.html) for an overview of thier orginal implementation information.
 
-Features of the Scripto plugin for Omeka can be found at: [https://github.com/ui-libraries/DIYHistory-transcribe](https://github.com/ui-libraries/DIYHistory-transcribe). The UI Libraries fork of plugin-Scripto adds the following features:
+The UI Libraries fork of plugin-Scripto adds the following features:
 
 - Track completion status of document pages (i.e., ‘Not Started’, ‘Needs Review’, ‘Completed’)
 - Track completion progress of documents based on page statuses.
@@ -9,10 +9,9 @@ Features of the Scripto plugin for Omeka can be found at: [https://github.com/ui
 - Initialize document page text entry box with pre-existing text, if available (helpful if using Scripto to correct OCR for typescript pages).
 - On every page action, automatically import transcriptions from MediaWiki as file metadata.
 
+The UI Libraries also created an Omeka theme, [Scribe](https://github.com/ui-libraries/scribe), to make use of these new features. The Library altered that theme for use in our project and is available at [Scribe](https://github.com/LibraryofVA/omeka-themes/tree/master/scribe).
 
-The UI Libraries has also created an Omeka theme, [Scribe](https://github.com/ui-libraries/scribe), to make use of these new features.
-
-To accommodate these features, UI Libraries has added three elements to the Scripto metadata element set: “Status”, “Percent Needs Review”, and “Percent Completed”. These values are calculated and updated with every “Save”, “Approve”, or “Unapprove” action made on a document page. Additionally, with every action, a 6-digit sorting number is calculated and stored in dc:Audience.
+To accommodate the above addded features, UI Libraries added three elements to the Scripto metadata element set: “Status”, “Percent Needs Review”, and “Percent Completed”. These values are calculated and updated with every “Save”, “Approve”, or “Unapprove” action made on a document page. Additionally, with every action, a 6-digit sorting number is calculated and stored in dc:Audience.
 
 “Status” stores the completion status of a document page (i.e., “Not Started”, “Needs Review”, “Completed”) in the page-level metadata. Scribe displays this value on each page thumbnail in the items/show page. Values for “Percent Needs Review” and “Percent Completed” are stored at the document (item) level and represent the percentage of pages within the document carrying the “Needs Review” and “Completed” statuses, respectively. These percentages are used by Scribe to display the stacked progress bars for each item in the collections/show page. The sorting number stored in dc:Audience is used by Scribe to sort items on collections/show page by completion progress, sinking the most completed items to the bottom and floating the least completed to the top.
 
