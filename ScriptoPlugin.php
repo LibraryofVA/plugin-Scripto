@@ -338,21 +338,35 @@ class ScriptoPlugin extends Omeka_Plugin_Abstract
     public static function openLayers($file)
     {
         $imageUrl = $file->getWebPath('archive');
-        $imageSize = ScriptoPlugin::getImageSize($imageUrl, 350);
+        $imageSize = ScriptoPlugin::getImageSize($imageUrl);
         
 ?>
 <script type="text/javascript">
-jQuery(document).ready(function() {
-    var scriptoMap = new OpenLayers.Map('scripto-openlayers');
-    var graphic = new OpenLayers.Layer.Image(
-        'Document Page',
-        <?php echo js_escape($imageUrl); ?>,
-        new OpenLayers.Bounds(-<?php echo $imageSize['width']; ?>, -<?php echo $imageSize['height']; ?>, <?php echo $imageSize['width']; ?>, <?php echo $imageSize['height']; ?>),
-        new OpenLayers.Size(<?php echo $imageSize['width']; ?>, <?php echo $imageSize['height']; ?>)
-    );
-    scriptoMap.addLayers([graphic]);
-    scriptoMap.zoomToMaxExtent();
-});
+	jQuery(document).ready(function() {
+		var pixelProjection = new ol.proj.Projection({
+		  code: 'pixel',
+		  units: 'pixels',
+		  extent: [0, 0, <?php echo $imageSize['height']; ?>, <?php echo $imageSize['width']; ?>]
+		});
+		var map = new ol.Map({
+		  layers: [
+			new ol.layer.Image({
+			  source: new ol.source.ImageStatic({
+				url: <?php echo js_escape($imageUrl); ?>,
+				imageSize: [<?php echo $imageSize['height']; ?>, <?php echo $imageSize['width']; ?>],
+				projection: pixelProjection,
+				imageExtent: pixelProjection.getExtent()
+			  })
+			})
+		  ],
+		  target: 'scripto-openlayers',
+		  view: new ol.View2D({
+			projection: pixelProjection,
+			center: ol.extent.getCenter(pixelProjection.getExtent()),
+			zoom: 1
+		  })
+		});
+	});
 </script>
 <div id="scripto-openlayers" style="height: 400px; border: 1px grey solid; margin-bottom: 12px;"></div>
 <?php
