@@ -349,6 +349,9 @@ class ScriptoPlugin extends Omeka_Plugin_Abstract
 		  extent: [0, 0, <?php echo $imageSize['height']; ?>, <?php echo $imageSize['width']; ?>]
 		});
 		var map = new ol.Map({
+		  controls: ol.control.defaults().extend([
+			new ol.control.FullScreen()
+		  ]),
 		  layers: [
 			new ol.layer.Image({
 			  source: new ol.source.ImageStatic({
@@ -366,6 +369,8 @@ class ScriptoPlugin extends Omeka_Plugin_Abstract
 			zoom: 1
 		  })
 		});
+		zoomslider = new ol.control.ZoomSlider();
+		map.addControl(zoomslider);
 	});
 </script>
 <div id="scripto-openlayers" style="height: 400px; border: 1px grey solid; margin-bottom: 12px;"></div>
