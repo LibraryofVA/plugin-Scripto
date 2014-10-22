@@ -363,7 +363,7 @@ class ScriptoPlugin extends Omeka_Plugin_Abstract
 			})
 		  ],
 		  target: 'scripto-openlayers',
-		  view: new ol.View2D({
+		  view: new ol.View({
 			projection: pixelProjection,
 			center: ol.extent.getCenter(pixelProjection.getExtent()),
 			zoom: 1
